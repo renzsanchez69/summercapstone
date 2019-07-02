@@ -1,0 +1,23 @@
+1. Change the db configuration from your old .env file
+Copy the values from your old .env file and change the values of the .env file in Niugini-Hub-V2.0
+DB_CONNECTION=pgsql
+DB_HOST=127.0.0.1
+DB_PORT=5432
+DB_DATABASE=homestead
+DB_USERNAME=postgres
+DB_PASSWORD=root
+
+
+2. Copy this part in from Klein's .env file to your .env file. (This is for the credit card transactions, need to use Klein's account).
+STRIPE_KEY=pk_test_aUebfPf4J9RobwuJLUZavgFS
+STRIPE_SECRET=sk_test_nApsqklCEfjEWUH9TofRMF4h
+
+3. Delete the ngiuni_hub in the pgAdmin4 application. Or delete its tables.
+
+4. Create new database named "niugini_hub" in pgAdmin4
+
+5. Open command prompt and execute "cd directory of the project" example: "cd C:\Users\User\Desktop\Projects\Niugini-Hub_V2"
+
+6. Execute "composer install" in command prompt.
+
+7. Execute "php artisan db:seed" in command prompt.

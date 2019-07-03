@@ -1,3 +1,7 @@
+<?php
+
+use App\Http\Controllers\UtilitiesController;
+?>
 @extends('layouts.base')
 
 @section('content')
@@ -51,8 +55,8 @@
                 <p class="product-category">{{ $product->category['name'] }}</p>
                 <h3 class="product-name"><a href="{{ route('productsDetails', ['id' => $product->id]) }}">{{ $product->name }}</a></h3>
                 <?php
-                require_once '..\app\Utilities\Tools.php';
-                $price = Tools::monetize(true, $product->price);
+                
+                $price = UtilitiesController::monetize(true, $product->price);
                 ?>
                 <h4 class="product-price">K <?php echo $price; ?></h4>
                 <span>Quantity: {{ $product["qty"] }}</span>

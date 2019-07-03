@@ -1,3 +1,7 @@
+<?php
+
+use App\Http\Controllers\UtilitiesController;
+?>
 @extends('layouts.base')
 
 @section('content')
@@ -121,8 +125,8 @@
 
           <div>
             <?php
-            require_once '..\app\Utilities\Tools.php';
-            $price = Tools::monetize(true, $product->price);
+            
+            $price = UtilitiesController::monetize(true, $product->price);
             ?>
             <h3 class="product-price">K <?php echo $price; ?></h3>
           </div>

@@ -1,3 +1,7 @@
+<?php
+
+use App\Http\Controllers\UtilitiesController;
+?>
 @extends('layouts.base')
 
 @section('content')
@@ -184,8 +188,8 @@
                         <div class="order-col">
                             <div><strong>TOTAL</strong></div>
                             <?php
-                            require_once '..\app\Utilities\Tools.php';
-                            $orderTotal = Tools::monetize(true, $product_subtotal);
+                            
+                            $orderTotal = UtilitiesController::monetize(true, $product_subtotal);
                             ?>
                             <div><strong class="order-total">K <?php echo $orderTotal; ?></strong></div>
                         </div>

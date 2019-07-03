@@ -1,3 +1,7 @@
+<?php
+
+use App\Http\Controllers\UtilitiesController;
+?>
 @extends('layouts.base')
 
 @section('content')
@@ -88,8 +92,8 @@
                         </div>
                         <div class="row">
                             <?php
-                            require_once '..\app\Utilities\Tools.php';
-                            $price = Tools::monetize(true, $item->price);
+                            
+                            $price = UtilitiesController::monetize(true, $item->price);
                             ?>
                             <h4 class="align-middle">
                                 Price: K <?php echo $price; ?>
@@ -97,7 +101,7 @@
                         </div>
                         <div class="row">
                             <?php
-                            $total = Tools::monetize(true, $product_total[$indexKey]);
+                            $total = UtilitiesController::monetize(true, $product_total[$indexKey]);
                             ?>
                             <h4>
                                 Total:
@@ -158,8 +162,8 @@
                         <div>
                             <strong class="order-total">
                                 <?php
-                                require_once '..\app\Utilities\Tools.php';
-                                $subtotal = Tools::monetize(true, $product_subtotal);
+                                
+                                $subtotal = UtilitiesController::monetize(true, $product_subtotal);
                                 ?>
                                 <span id="cart-page-total">K <?php echo $subtotal; ?><span>
                             </strong>

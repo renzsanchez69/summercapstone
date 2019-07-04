@@ -36,17 +36,22 @@ class Sellers extends Model
     public function history()
     {
         $history = DB::table('orders_products')
-                        ->join('products', 'orders_products.products_id', '=', 'products.id')
-                        ->join('orders', 'orders_products.orders_id', '=', 'orders.id')
-                        ->join('users', 'orders.user_id', '=', 'users.id')
-                        ->select('orders_products.qty', 'orders_products.created_at', 
-                            'products.name AS product_name', 'users.name AS customer', 
-                            'users.phone_number')
-                        ->where('products.sellers_id', $this->id)
-                        ->orderBy('orders_products.id', 'desc')
-                        ->paginate(10);
-    
+            ->join('products', 'orders_products.products_id', '=', 'products.id')
+            ->join('orders', 'orders_products.orders_id', '=', 'orders.id')
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->select(
+                'orders.total',
+                'orders.payment_method',
+                'orders_products.qty',
+                'orders_products.created_at',
+                'products.name AS product_name',
+                'users.name AS customer',
+                'users.phone_number'
+            )
+            ->where('products.sellers_id', $this->id)
+            ->orderBy('orders_products.id', 'desc')
+            ->paginate(10);
+
         return $history;
     }
-
 }

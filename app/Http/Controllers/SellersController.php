@@ -77,8 +77,12 @@ class SellersController extends Controller
     public function details($id)
     {
         $seller = Sellers::findOrFail($id);
+
+        $productsCount = Products::where('sellers_id', $id)->count();
+
         return view('sellers.details', [
-            'seller' => $seller
+            'seller' => $seller,
+            'productCount' => $productsCount
         ]);
     }
 
@@ -173,8 +177,7 @@ class SellersController extends Controller
         $categories = Categories::all();
         $id = Auth::user()->id;
         $seller = Sellers::where('user_id', $id)->get()->first();
-        $products = Products::where('id', $id)->paginate(200);
 
-        return view('sellers.history', ['history' => $seller->history()], ['products' => $products]);
+        return view('sellers.history', ['history' => $seller->history()]);
     }
 }

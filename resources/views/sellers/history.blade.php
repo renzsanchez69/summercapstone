@@ -1,3 +1,7 @@
+<?php
+
+use App\Http\Controllers\UtilitiesController;
+?>
 @extends('layouts.base')
 
 @section('content')
@@ -46,22 +50,78 @@
               <th scope="col">QTY</th>
               <th scope="col">Customer</th>
               <th scope="col">Customer Contact</th>
+              <th scope="cole">Payment Method</th>
               <th scope="cole">Amount</th>
             </tr>
           </thead>
           <tbody>
+
+            <?php
+
+            $cashOnDelivery = 0;
+            $visa = 0;
+
+            ?>
             @foreach ($history as $item)
+
+            <?php
+
+            $itemTotalAmount = $item->qty * $item->total;
+
+            $paymentMethod = $item->payment_method;
+            $paymentDisplay = $paymentMethod === 0 ? "Cash on delivery" : "Visa Card";
+
+            if ($paymentMethod === 0) {
+              $cashOnDelivery += $itemTotalAmount;
+            } else {
+              $visa += $itemTotalAmount;
+            }
+
+            ?>
+
             <tr>
-              <th scope="row">{{ $item->created_at }}</th>
+              <th scope="row">{{ date("F j, Y, g:i A", strtotime($item->created_at)) }}</th>
               <td>{{ $item->product_name }}</td>
               <td>{{ $item->qty }}</td>
               <td>{{ $item->customer }}</td>
-              <td>{{ $item->phone_number }}</td> 
+              <td>{{ $item->phone_number }}</td>
+
+              <td>{{ $paymentDisplay }}</td>
+
+              <td>K {{ UtilitiesController::monetize(true, $itemTotalAmount) }}</td>
             </tr>
             @endforeach
-            @foreach($products as $products)
-             {{$products->name}} <br>price: {{$products->price}}
-            @endforeach
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong>Cash on Delivery Total: <i>K {{ UtilitiesController::monetize(true, $cashOnDelivery) }}</i></strong></td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong>Visa Total: <i>K {{ UtilitiesController::monetize(true, $visa) }}</i></strong></td>
+            </tr>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong>Total: <i>K {{ UtilitiesController::monetize(true, $visa + $cashOnDelivery) }}</i></strong></td>
+            </tr>
+
           </tbody>
         </table>
 

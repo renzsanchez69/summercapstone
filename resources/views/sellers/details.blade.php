@@ -111,11 +111,7 @@
                 <p class="product-category">Phone: {{ $seller->user->phone_number }}</p>
                 <p class="product-category">Email: {{ $seller->user->email }}</p>
                 <p class="product-category">Address: {{ $seller->user->address }}</p>
-                <p class="product-category">Location: {{ $seller->location }}</p>
-                <p class="product-category">Products Sold: {{ $seller->products_sold }}</p>
-                <p class="product-category">Products Posted: {{ $seller->products_posted }}</p>
-                <p class="product-category">Products Count: {{ $seller->products_count }}</p>
-                <p class="product-category">Stars: {{ $seller->stars }}</p>
+                <p class="product-category">Location: {{ $seller->location ? $seller->location : "To be added" }}</p>
                 @if ($seller->status == 1)
                 <p class="product-category">Status: Active</p>
                 @elseif ($seller->status == 0)
@@ -123,6 +119,10 @@
                 @else
                 <p class="product-category">Status: Inactive</p>
                 @endif
+                <hr>
+                <p class="product-category">Total Products: {{ $productCount }}</p>
+                <p class="product-category">Products Sold: {{ $seller->products_sold }}</p>
+
             </div>
             <!-- /ASIDE -->
         </div>

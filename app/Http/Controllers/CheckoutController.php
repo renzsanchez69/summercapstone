@@ -43,11 +43,13 @@ class CheckoutController extends Controller
         $address = Auth::user()->address;
         $cart_items = 0;
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
             $cart_items += $product->pivot->qty;
-            array_push($product_total,
-                ($product->pivot->qty * $product->price));
+            array_push(
+                $product_total,
+                ($product->pivot->qty * $product->price)
+            );
         }
 
         return view('checkout.checkout', [
@@ -64,7 +66,7 @@ class CheckoutController extends Controller
     /**
      * Get a validator for an incoming order request.
      *
-    * @param  array  $data
+     * @param  array  $data
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -89,14 +91,17 @@ class CheckoutController extends Controller
         $product_total = [];
         $shipping_address = $request->address;
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
         }
 
-        return view('checkout.payment',
-            ['shipping_address' => $shipping_address,
-            'product_subtotal' => $product_subtotal
-        ]);
+        return view(
+            'checkout.payment',
+            [
+                'shipping_address' => $shipping_address,
+                'product_subtotal' => $product_subtotal
+            ]
+        );
     }
 
     /**
@@ -116,7 +121,7 @@ class CheckoutController extends Controller
         $product_subtotal = 0.00;
         $product_total = [];
 
-        foreach($products as $product) {
+        foreach ($products as $product) {
             $product_subtotal += $product->pivot->qty * $product->price;
         }
 
@@ -125,7 +130,7 @@ class CheckoutController extends Controller
             return back();
         }
 
-        $order = New Orders;
+        $order = new Orders;
         $order->order_date = Carbon::now();
         $order->total = $product_subtotal;
         $order->address = Auth::user()->address;
@@ -140,10 +145,12 @@ class CheckoutController extends Controller
             try {
                 $charge = $stripe
                     ->charges()
-                        ->create(['source' => $request->stripeToken,
-                            'currency' => 'PGK',
-                            'amount' => $product_subtotal,
-                            'description' => 'Add in wallet', ]);
+                    ->create([
+                        'source' => $request->stripeToken,
+                        'currency' => 'PGK',
+                        'amount' => $product_subtotal,
+                        'description' => 'Add in wallet',
+                    ]);
 
                 if ($charge['status'] == 'succeeded') {
 
@@ -154,7 +161,7 @@ class CheckoutController extends Controller
                     $order->save();
 
 
-                    foreach($products as $product) {
+                    foreach ($products as $product) {
                         $order->products()->attach($product, ['qty' => $product->pivot->qty]);
                         $cart->products()->detach($product);
                     }
@@ -165,33 +172,28 @@ class CheckoutController extends Controller
                     Session::put('error', 'Money not add in wallet!!');
                     return back();
                 }
-
-
-            } catch(Exception $e) {
+            } catch (Exception $e) {
                 Session::put('error', $e->getMessage());
                 return back();
-            } catch(CartalystStripeExceptionCardErrorException $e) {
+            } catch (CartalystStripeExceptionCardErrorException $e) {
                 Session::put('error', $e->getMessage());
                 return back();
-            } catch(CartalystStripeExceptionMissingParameterException $e) {
+            } catch (CartalystStripeExceptionMissingParameterException $e) {
                 Session::put('error', $e->getMessage());
                 return back();
             }
-
         } else {
             $order->payment_method = 0;
             $order->payment_status = 'unpaid';
             $order->save();
 
-            foreach($products as $product) {
-               $order->products()->attach($product, ['qty' => $product->pivot->qty]);
-               $cart->products()->detach($product);
+            foreach ($products as $product) {
+                $order->products()->attach($product, ['qty' => $product->pivot->qty]);
+                $cart->products()->detach($product);
             }
 
             Session::flash('success', 'Order Successful!');
             return redirect('/');
         }
-
     }
-
 }

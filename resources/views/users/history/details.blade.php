@@ -51,7 +51,7 @@
             <h3 class="product-name">Products:</h3>
             <ul>
               @foreach ($products as  $indexKey => $product)
-              <li>{{ $product->pivot->qty }} x {{ $product->name }} - K {{$product_total[$indexKey]}} (sold by: {{$product_username[$indexKey]}})</li>
+              <li>{{ $product->pivot->qty }} x {{ $product->name }} - K {{$product_total[$indexKey]}} (Seller: {{$product_username[$indexKey]}})</li>
               @endforeach
             </ul>
             <br/>

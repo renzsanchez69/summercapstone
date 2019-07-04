@@ -203,7 +203,25 @@ class UserController extends Controller
     {
         $id = Auth::user()->id;
         $user = User::find($id);
-        $history = Orders::where('user_id', $id)->paginate(12);
+        $history = Orders::select(
+            'orders.id',
+            'orders.order_date',
+            'orders.delivery_status',
+            'orders.total AS orderTotalAmount'
+        )
+            ->where('user_id', $id)->paginate(12);
+
+        $history = Orders::join('orders_products', 'orders.id', '=', 'orders_products.orders_id')
+            ->join('products', 'orders_products.products_id', '=', 'products.id')
+            ->select(
+                'orders.id',
+                'orders.order_date',
+                'orders.delivery_status',
+                'orders.total AS order_total_amount',
+                'orders.payment_method',
+                'products.name'
+            )
+            ->where('user_id', $id)->paginate(12);
 
         return view('users.history.list', ['history' => $history]);
     }

@@ -38,6 +38,7 @@
       <div class="col-md-8">
         <div class="product">
           <div class="product-body" style="text-align: left !important;">
+            <h3 class="product-name">Name: {{ $name }}</h3>
             <h3 class="product-name">Order Date: {{ $order->order_date }}</h3>
             <h3 class="product-name">Order Address: {{ $order->address }}</h3>
             @if($order->delivery_status == 0)
@@ -51,7 +52,7 @@
             <h3 class="product-name">Products:</h3>
             <ul>
               @foreach ($products as $indexKey => $product)
-              <li>{{ $product->pivot->qty }} x {{ $product->name }} - K {{$product_total[$indexKey]}} (sold by: {{$product_username[$indexKey]}})</li>
+              <li>{{ $product->pivot->qty }} x {{ $product->name }} - K {{$product_total[$indexKey]}} (Seller: {{$product_username[$indexKey]}})</li>
               @endforeach
             </ul>
             <br />

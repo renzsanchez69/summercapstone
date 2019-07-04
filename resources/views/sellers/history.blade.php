@@ -5,6 +5,9 @@ use App\Http\Controllers\UtilitiesController;
 @extends('layouts.base')
 
 @section('content')
+@include('layouts.header')
+@include('layouts.navigation')
+
 
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
@@ -47,6 +50,7 @@ use App\Http\Controllers\UtilitiesController;
             <tr>
               <th scope="col">Order Date</th>
               <th scope="col">Product Name</th>
+              <th scope="col">Category</th>
               <th scope="col">QTY</th>
               <th scope="col">Customer</th>
               <th scope="col">Customer Contact</th>
@@ -80,8 +84,9 @@ use App\Http\Controllers\UtilitiesController;
             ?>
 
             <tr>
-              <th scope="row">{{ date("F j, Y, g:i A", strtotime($item->created_at)) }}</th>
+              <td scope="row">{{ date("F j, Y, g:i A", strtotime($item->created_at)) }}</td>
               <td>{{ $item->product_name }}</td>
+              <td>{{ $item->category }}</td>
               <td>{{ $item->qty }}</td>
               <td>{{ $item->customer }}</td>
               <td>{{ $item->phone_number }}</td>
@@ -99,6 +104,7 @@ use App\Http\Controllers\UtilitiesController;
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
               <td><strong>Cash on Delivery Total: <i>K {{ UtilitiesController::monetize(true, $cashOnDelivery) }}</i></strong></td>
             </tr>
 
@@ -109,10 +115,12 @@ use App\Http\Controllers\UtilitiesController;
               <td></td>
               <td></td>
               <td></td>
+              <td></td>
               <td><strong>Visa Total: <i>K {{ UtilitiesController::monetize(true, $visa) }}</i></strong></td>
             </tr>
 
             <tr>
+              <td></td>
               <td></td>
               <td></td>
               <td></td>

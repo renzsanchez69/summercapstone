@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\DB;
 
 use App\Categories as Categories;
 use App\Sellers as Sellers;
@@ -179,6 +180,13 @@ class AdminController extends Controller
     public function ordersDetails($id)
     {
         $order = Orders::find($id);
+        $name = DB::table('orders')
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->select(
+                'users.name'
+            )
+            ->where('orders.id', $id)
+            ->get();
         $products = $order->products;
         $product_subtotal = 0.00;
         $product_total = [];
@@ -195,6 +203,7 @@ class AdminController extends Controller
             array_push($product_seller_username, $product->seller->user->username);
         }
         return view('admin.orders.details', [
+            'name' => $name[0]->name,
             'order' => $order,
             'products' => $products,
             'product_subtotal' => $product_subtotal,
@@ -206,7 +215,15 @@ class AdminController extends Controller
 
     public function updateOrdersStatus(Request $request)
     {
-        $order = Orders::findOrFail($request->route('id'));
+        $id = $request->route('id');
+        $order = Orders::findOrFail($id);
+        $name = DB::table('orders')
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->select(
+                'users.name'
+            )
+            ->where('orders.id', $id)
+            ->get();
 
         $order->delivery_status = $request->status;
         $order->payment_status = 'done';
@@ -230,6 +247,7 @@ class AdminController extends Controller
         }
 
         return view('admin.orders.details', [
+            'name' => $name[0]->name,
             'order' => $order,
             'products' => $products,
             'product_subtotal' => $product_subtotal,

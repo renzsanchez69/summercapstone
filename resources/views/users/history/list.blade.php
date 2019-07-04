@@ -1,6 +1,13 @@
+<?php
+
+use App\Http\Controllers\UtilitiesController;
+?>
 @extends('layouts.base')
 
 @section('content')
+
+@include('layouts.header')
+@include('layouts.navigation')
 
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
@@ -38,35 +45,77 @@
       <!-- STORE -->
       <div id="store" class="col-sm">
 
+
+        <?php
+        $total = 0;
+        ?>
+
         <!-- products table -->
         <table class="table table-striped">
           <thead>
             <tr>
               <th scope="col">Order ID</th>
+              <th scope="col">Product Name</th>
               <th scope="col">Order date</th>
-              <th scope="col">Total</th>
               <th scope="col">Status</th>
               <th scope="col">Action</th>
+              <th scope="col">Payment Method</th>
+              <th scope="col">Total</th>
             </tr>
           </thead>
           <tbody>
-          @foreach ($history as $item)
+            @foreach ($history as $item)
+
+            <?php
+            $amount = $item->order_total_amount;
+            $total += $amount;
+            ?>
             <tr>
-              <th scope="row">{{ $item->id }}</th>
-              <td>{{ $item->order_date }}</td>
-              <td>K {{ $item->total }}</td>
-                @if ($item->delivery_status == 0)
-                    <td>In Transit </td>
-                @elseif ($item->delivery_status == 1)
-                    <td>Delivered</td>
-                @elseif ($item->delivery_status == 2)
-                    <td>Cancelled</td>
-                @endif
+              <td scope="row">{{ $item->id }}</td>
+
+              <td scope="row">{{ $item->name }}</td>
+
+              <td>{{ date("F j, Y, g:i A", strtotime($item->order_date)) }}</td>
+
+              @if ($item->delivery_status == 0)
+              <td>In Transit </td>
+              @elseif ($item->delivery_status == 1)
+              <td>Delivered</td>
+              @elseif ($item->delivery_status == 2)
+              <td>Cancelled</td>
+              @endif
+
               <td><a href="{{ route('userOrder', $item->id)  }}">Manage Order</a></td>
+
+              <?php
+              $paymentMethod = $item->payment_method;
+              $paymentDisplay = $paymentMethod === 0 ? "Cash on delivery" : "Visa Card";
+              ?>
+
+              <td scope="row">{{ $paymentDisplay }}</td>
+
+              <td>K <?php echo UtilitiesController::monetize(true, $amount); ?></td>
             </tr>
-          @endforeach
+
+            @endforeach
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <strong>
+                  <i>Total: K {{ UtilitiesController::monetize(true, $total) }}</i>
+                </strong>
+              </td>
+            </tr>
           </tbody>
         </table>
+
+
 
         <br>
         <br>

@@ -80,9 +80,12 @@ class SellersController extends Controller
 
         $productsCount = Products::where('sellers_id', $id)->count();
 
+        $soldProducts = DB::select("SELECT COUNT(*) FROM orders_products JOIN products ON orders_products.products_id = products.id WHERE products.sellers_id = $id");
+
         return view('sellers.details', [
             'seller' => $seller,
-            'productCount' => $productsCount
+            'productCount' => $productsCount,
+            'soldProducts' => $soldProducts
         ]);
     }
 

@@ -1,3 +1,7 @@
+<?php
+
+use App\Http\Controllers\UtilitiesController;
+?>
 @extends('layouts.base')
 
 @section('content')
@@ -50,21 +54,23 @@
             </tr>
           </thead>
           <tbody>
-          @foreach ($orders as $item)
+            @foreach ($orders as $item)
             <tr>
               <th scope="row">{{ $item->id }}</th>
               <td>{{ $item->order_date }}</td>
-              <td>K {{ $item->total }}</td>
-                @if ($item->delivery_status == 0)
-                    <td>In Transit </td>
-                @elseif ($item->delivery_status == 1)
-                    <td>Delivered</td>
-                @elseif ($item->delivery_status == 2)
-                    <td>Cancelled</td>
-                @endif
+
+              <td>K {{ UtilitiesController::monetize(true, $item->total) }}</td>
+
+              @if ($item->delivery_status == 0)
+              <td>In Transit </td>
+              @elseif ($item->delivery_status == 1)
+              <td>Delivered</td>
+              @elseif ($item->delivery_status == 2)
+              <td>Cancelled</td>
+              @endif
               <td><a href="{{ route('adminOrdersDetails', $item->id)  }}">Manage Order</a></td>
             </tr>
-          @endforeach
+            @endforeach
           </tbody>
         </table>
 

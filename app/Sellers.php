@@ -37,6 +37,7 @@ class Sellers extends Model
     {
         $history = DB::table('orders_products')
             ->join('products', 'orders_products.products_id', '=', 'products.id')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
             ->join('orders', 'orders_products.orders_id', '=', 'orders.id')
             ->join('users', 'orders.user_id', '=', 'users.id')
             ->select(
@@ -45,6 +46,7 @@ class Sellers extends Model
                 'orders_products.qty',
                 'orders_products.created_at',
                 'products.name AS product_name',
+                'categories.name AS category',
                 'users.name AS customer',
                 'users.phone_number'
             )

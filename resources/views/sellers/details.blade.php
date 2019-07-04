@@ -1,6 +1,8 @@
 @extends('layouts.base')
 
 @section('content')
+@include('layouts.header')
+@include('layouts.navigation')
 
 <!-- BREADCRUMB -->
 <div id="breadcrumb" class="section">
@@ -121,7 +123,8 @@
                 @endif
                 <hr>
                 <p class="product-category">Total Products: {{ $productCount }}</p>
-                <p class="product-category">Products Sold: {{ $seller->products_sold }}</p>
+
+                <p class="product-category">Sold Products: {{ $soldProducts[0]->count }}</p>
 
             </div>
             <!-- /ASIDE -->

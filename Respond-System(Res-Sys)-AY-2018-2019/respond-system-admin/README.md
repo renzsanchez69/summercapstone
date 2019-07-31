@@ -9,8 +9,13 @@ Syd Singson Suarez
 software needed: 
 node.js
 
-to activate respond-system-admin
+to setup respond-system-admin
 
->While inside respond-system-admin 
->>Shift+Right Click, open CMD or Windows Powershell
->>Type in 'npm start'
+While inside respond-system-admin 
+ >Shift+Right Click, open CMD or Windows Powershell
+ 
+ >type 'npm install' to install node modules
+ 
+After installation, to activate respond-system-admin
+ >type 'npm start'
+ 

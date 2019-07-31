@@ -1,9 +1,9 @@
 # respondsystem
 Respond System Application
 
-Michael John Balagtas
-Prince Claire Joshua C. Caino
-Kenneth Alfanta
+Michael John Balagtas //
+Prince Claire Joshua C. Caino //
+Kenneth Alfanta //
 Syd Singson Suarez
 
 software needed:

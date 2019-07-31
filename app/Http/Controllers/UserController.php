@@ -218,7 +218,9 @@ class UserController extends Controller
                 'orders.order_date',
                 'orders.delivery_status',
                 'orders.total AS order_total_amount',
+                'orders_products.qty',
                 'orders.payment_method',
+                'products.price AS presyo',
                 'products.name'
             )
             ->where('user_id', $id)->paginate(12);
@@ -260,5 +262,14 @@ class UserController extends Controller
             'cart_items' => $cart_items,
             'product_username' => $product_seller_username
         ]);
+    }
+
+    public function confirmOrder($id)
+    {
+        $order = Orders::findOrFail($id);
+        $order->delivery_status = 3;
+        $order->save();
+        Session::flash('confirmSuccess', 'Order was successfully received!');
+        return back();
     }
 }

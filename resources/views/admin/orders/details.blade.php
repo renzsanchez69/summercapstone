@@ -39,7 +39,7 @@
         <div class="product">
           <div class="product-body" style="text-align: left !important;">
             <h3 class="product-name">Name: {{ $name }}</h3>
-            <h3 class="product-name">Order Date: {{ $order->order_date }}</h3>
+            <h3 class="product-name">Order Date: {{ date("F j, Y ", strtotime($order->order_date)) }}</h3>
             <h3 class="product-name">Order Address: {{ $order->address }}</h3>
             @if($order->delivery_status == 0)
             <h3 class="product-name">Order Status: In Transit</h3>
@@ -58,7 +58,7 @@
             <br />
             <h3 class="product-name">Total: K {{ $order->total }}</h3>
             <h3 class="product-name">Payment Status: {{ $order->payment_status }}</h3>
-            <h3 class="product-name">Payment Date: {{ $order->payment_date }}</h3>
+            <h3 class="product-name">Payment Date: {{ date("F j, Y ", strtotime($order->payment_date)) }}</h3>
             @if($order->payment_method == 1)
             <h3 class="product-name">Billing Address: {{ $order->billing_address }}</h3>
             @endif

@@ -67,7 +67,7 @@ use App\Http\Controllers\UtilitiesController;
             @foreach ($history as $item)
 
             <?php
-            $amount = $item->order_total_amount;
+            $amount = $item->qty * $item->presyo;
             $total += $amount;
             ?>
             <tr>
@@ -75,7 +75,7 @@ use App\Http\Controllers\UtilitiesController;
 
               <td scope="row">{{ $item->name }}</td>
 
-              <td>{{ date("F j, Y, g:i A", strtotime($item->order_date)) }}</td>
+              <td>{{ date("F j, Y", strtotime($item->order_date)) }}</td>
 
               @if ($item->delivery_status == 0)
               <td>In Transit </td>
@@ -83,6 +83,10 @@ use App\Http\Controllers\UtilitiesController;
               <td>Delivered</td>
               @elseif ($item->delivery_status == 2)
               <td>Cancelled</td>
+              @elseif ($item->delivery_status == 2)
+              <td>Cancelled</td>
+              @elseif ($item->delivery_status == 3)
+              <td>Received</td>
               @endif
 
               <td><a href="{{ route('userOrder', $item->id)  }}">Manage Order</a></td>

@@ -57,7 +57,7 @@ use App\Http\Controllers\UtilitiesController;
             @foreach ($orders as $item)
             <tr>
               <th scope="row">{{ $item->id }}</th>
-              <td>{{ $item->order_date }}</td>
+              <td>{{ date("F j, Y ", strtotime($item->order_date)) }}</td>
 
               <td>K {{ UtilitiesController::monetize(true, $item->total) }}</td>
 
@@ -67,6 +67,8 @@ use App\Http\Controllers\UtilitiesController;
               <td>Delivered</td>
               @elseif ($item->delivery_status == 2)
               <td>Cancelled</td>
+              @elseif ($item->delivery_status == 3)
+              <td>Received</td>
               @endif
               <td><a href="{{ route('adminOrdersDetails', $item->id)  }}">Manage Order</a></td>
             </tr>

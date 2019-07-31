@@ -58,6 +58,7 @@
                 @else
                     <td>Deactivated</td>
                 @endif
+                
                 <td><a href="{{ route('adminUsersDetails', ['id' => $user->id]) }}">Manage User</a></td>
             </tr>
           @endforeach

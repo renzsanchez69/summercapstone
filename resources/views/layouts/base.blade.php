@@ -35,6 +35,7 @@ use App\Users;
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <title>Niugini-hub</title>
+  <script src="{{ asset('js/jquery.min.js') }}"></script>
 </head>
 
 <body>

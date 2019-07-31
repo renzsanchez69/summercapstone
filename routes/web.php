@@ -27,6 +27,7 @@ Route::get('/user/deactivate', 'UserController@deactivateForm')->name('deactivat
 Route::POST('/user/deactivateAccount', 'UserController@deactivate')->name('deactivate');
 Route::get('/user/history', 'UserController@history')->name('userHistory');
 Route::get('/user/history/{id}', 'UserController@order')->name('userOrder');
+Route::post('/user/history/{id}', 'UserController@confirmOrder')->name('confirmOrder');
 
 // Sellers
 Route::get('/sellers/apply/{id}', ['uses' => 'SellersController@apply']);

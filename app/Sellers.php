@@ -46,13 +46,15 @@ class Sellers extends Model
                 'orders_products.qty',
                 'orders_products.created_at',
                 'products.name AS product_name',
+                'products.price AS presyo',
+                'products.qty AS remaining_stock',
                 'categories.name AS category',
                 'users.name AS customer',
                 'users.phone_number'
             )
             ->where('products.sellers_id', $this->id)
             ->orderBy('orders_products.id', 'desc')
-            ->paginate(10);
+            ->paginate(20);
 
         return $history;
     }

@@ -1,10 +1,10 @@
 # respond-system-admin
 Respond System Admin Application
 
-Michael John Balagtas
-Prince Claire Joshua C. Caino 
-Kenneth Alfanta
-Syd Singson Suarez
+Michael John Balagtas //
+Prince Claire Joshua C. Caino //
+Kenneth Alfanta //
+Syd Singson Suarez 
 
 software needed: 
 node.js

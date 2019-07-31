@@ -14,7 +14,7 @@ java jdk
 to open respondSystem App
 
 >Open your android emulator 
->While inside 'respondSystem' folder
+>While inside 'respondsystem' folder
 >>Shift+Right Click, open CMD or Windows Powershell
->>Type react-native run-android
+<Type react-native run-android
 

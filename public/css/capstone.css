@@ -1,0 +1,79 @@
+div#sampledata_wrapper{
+	margin: 10px;	
+}
+
+.qty{
+	color:red;
+}
+
+.hblue{
+	color:black;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: blue;
+  text-align: center;
+}
+
+.margintop{
+	margin: 15px;
+}
+
+th.sorting {
+  font-size: 12px;
+}
+
+th.sorting_asc {
+  font-size: 12px;
+}
+
+.odd td {
+  font-size: 12px;
+}
+
+.even td {
+  font-size: 12px;
+}
+
+
+#sampledata_length label {
+  font-size: 12px;
+}
+
+#sampledata_filter label {
+  font-size: 12px;
+}
+
+.btn.btn-secondary.btn-lg.pull-right.analystbtn {
+    height: 5%;
+    line-height: 0.5;
+}
+
+button.btn.btn-info.btn-lg.pull-right.analystbtn {
+    height: 5%;
+    line-height: 0.5;
+}
+
+.card-header {
+    font-size: 16px;
+}
+
+.navbar-brand>img {
+  display: inline;
+}
+
+ul.nav.nav-tabs {
+    margin: 10px;
+}
+
+.tab-content {
+    padding: 10px;
+}
+
+.exclamationicon{
+  height: 20px;
+}

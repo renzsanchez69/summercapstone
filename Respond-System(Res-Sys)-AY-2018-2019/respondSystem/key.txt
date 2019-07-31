@@ -1,0 +1,36 @@
+Android 9.0 Galaxy Nexus - emulator -avd 4.65_720p_Galaxy_Nexus_API_28 -no-snapshot -gpu swiftshader_indirect
+
+Android 6.0 Galaxy Nexus - emulator -avd 4.65_720p_Galaxy_Nexus_API_23 -no-snapshot -gpu swiftshader_indirect
+
+mss050465
+
+Responder Coordinates - 10.3536446 123.91109664
+Bystander Coordinates - 10.3110983 123.8917
+
+Outside Radius Coordinates - 10.280802, 123.880623
+
+Exact Center Location:
+Latitude: 10.345486684203308
+Longitude: 123.9403284075089
+Radius: 5000
+
+icons app:
+192 * 192 (square & round) mipmap-xxxhdpi
+png 
+
+144*144 (square & round) mipmap-xxhdpi
+png
+
+96*96 (square & round) mipmap-xhdpi  
+png 
+
+72 * 72 (seym) mipmap-hdpi 
+png 
+
+adb devices
+
+react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+
+48 * 48 (seym) mipmap-mdpi 
+png
+
